@@ -33,16 +33,16 @@ Six years into building web apps and developer tools, Ada shipped an internal AI
 
 ### 🛠️ Featured work
 
-**[tiny-queue](https://github.com/ada-example/tiny-queue)**
-A 2 KB job queue for edge functions.
+**[tiny-queue](https://github.com/ada-example/tiny-queue)**<br/>
+A 2 KB job queue for edge functions.<br/>
 <sub>TypeScript</sub>
 
-**[PaperChat](https://paperchat.example.com)**
-Chat with research papers you upload.
+**[PaperChat](https://paperchat.example.com)**<br/>
+Chat with research papers you upload.<br/>
 <sub>Python · LangChain</sub>
 
-**[dotfiles](https://github.com/ada-example/dotfiles)**
-A terminal setup, documented.
+**[dotfiles](https://github.com/ada-example/dotfiles)**<br/>
+A terminal setup, documented.<br/>
 <sub>Shell</sub>
 
 ### 🧰 The toolkit
