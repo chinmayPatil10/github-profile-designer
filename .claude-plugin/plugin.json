@@ -1,0 +1,8 @@
+{
+  "name": "github-profile-designer",
+  "description": "Design, write and publish your GitHub profile README in 12 designs, including interactive guestbook, poll and choose-your-adventure profiles",
+  "version": "0.2.0",
+  "author": { "name": "Chinmay Patil" },
+  "homepage": "https://github.com/chinmayPatil10/github-profile-designer",
+  "license": "MIT"
+}

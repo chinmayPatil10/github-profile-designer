@@ -1,108 +1,100 @@
 <div align="center">
 
-# 🎨 GitHub Profile Designer MCP
+# 🎨 GitHub Profile Designer
 
-**Pick a design, and your AI assistant builds and publishes your GitHub profile README.**
+**An agent skill that designs, writes and publishes your GitHub profile README.**
 
-An [MCP](https://modelcontextprotocol.io) server that reads your public GitHub data, offers 8 profile README designs, renders your README, and can publish it to your `username/username` repo.
+Tell Claude *"make my GitHub profile look great"*. It reads your public GitHub data, asks what it can't find, offers 12 designs (4 of them interactive), writes the README, checks that every image renders, and publishes it to your `username/username` repo once you say yes.
 
-![MCP](https://img.shields.io/badge/MCP-server-7C4DFF?style=flat-square)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Skill](https://img.shields.io/badge/Agent-Skill-7C4DFF?style=flat-square)
+![Claude Code plugin](https://img.shields.io/badge/Claude_Code-plugin-D85A30?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-00E5FF?style=flat-square)
 
 </div>
 
-## ✨ How it works
-
-Just ask your assistant:
-
-> *"Design my GitHub profile. My username is octocat."*
-
-1. **`fetch_github_profile`** pulls your name, bio, links, languages and best repos into a draft profile.
-2. The assistant asks for whatever's missing: tagline, role, a few facts about you, and what you're working on now.
-3. **`list_designs`** shows the designs, and you pick one.
-4. **`generate_readme`** renders it so you can review it.
-5. **`publish_profile_readme`** commits it to `username/username` once you confirm, creating the repo if needed.
-
 ## 🖼️ Designs
 
-| Design | Vibe | Highlights | Example |
-|---|---|---|---|
-| `classic` | Polished, recruiter-friendly | Wave banner, tech badges, projects table | [view](examples/classic.md) |
-| `terminal` | Hacker, monospace | `$ whoami`, `ls ./projects`, `tail -f now.log` sections | [view](examples/terminal.md) |
-| `lab-notebook` | Curious experimenter | Projects as EXP-001, EXP-002… with hypothesis and status | [view](examples/lab-notebook.md) |
-| `stats-dashboard` | Data-driven | Live stats cards, streak, contribution graph | [view](examples/stats-dashboard.md) |
-| `neon` | Flashy, animated | Typing header, skill icons, contribution snake 🐍 | [view](examples/neon.md) |
-| `minimal` | Calm, writerly | Text only, no images | [view](examples/minimal.md) |
-| `project-cards` | Portfolio-first | Repo pin cards in a grid | [view](examples/project-cards.md) |
-| `neon-terminal` | Flashy hacker | Neon animated header plus terminal sections | [view](examples/neon-terminal.md) |
+**Static**
 
-The `neon` and `neon-terminal` designs also add `.github/workflows/snake.yml`, a GitHub Action that redraws the contribution snake every night.
+| Design | Vibe | Example |
+|---|---|---|
+| Clean & professional | Polished, recruiter-friendly | [view](skills/github-profile-designer/assets/examples/classic.md) |
+| Terminal | `$ whoami` console sections | [view](skills/github-profile-designer/assets/examples/terminal.md) |
+| Lab notebook | Projects as EXP-001, EXP-002… | [view](skills/github-profile-designer/assets/examples/lab-notebook.md) |
+| Stats dashboard | Live stats, streak, contribution chart | [view](skills/github-profile-designer/assets/examples/stats-dashboard.md) |
+| Animated neon | Typing header, skill icons, contribution snake 🐍 | [view](skills/github-profile-designer/assets/examples/neon.md) |
+| Minimal editorial | Text only, calm | [view](skills/github-profile-designer/assets/examples/minimal.md) |
+| Project cards | Repo pin cards in a grid | [view](skills/github-profile-designer/assets/examples/project-cards.md) |
+| Neon terminal | Neon header plus terminal sections | [view](skills/github-profile-designer/assets/examples/neon-terminal.md) |
+
+**🕹️ Interactive**
+
+| Design | What visitors do | Example |
+|---|---|---|
+| Choose your adventure | Open "doors" to explore your workshop, library, journal and a secret room | [try it](skills/github-profile-designer/assets/examples/adventure.md) |
+| Interactive resume | Expand sections, see a Mermaid career timeline and skills mindmap | [try it](skills/github-profile-designer/assets/examples/interactive-resume.md) |
+| Guestbook | Sign your profile. A GitHub Action adds their message within a minute | [view](skills/github-profile-designer/assets/examples/guestbook.md) |
+| Poll | Vote on what you build next. An Action counts the votes and redraws the bars | [view](skills/github-profile-designer/assets/examples/poll.md) |
+
+GitHub never runs JavaScript in a README, so the interactive designs use what GitHub *does* allow:
+- **Collapsible sections:** `<details>` lets visitors choose what to open.
+- **Rendered diagrams:** Mermaid code blocks become timelines and mindmaps.
+- **Issue-driven Actions:** a link opens a pre-filled issue, and a workflow updates the README and closes the issue.
 
 ## 🚀 Install
 
-You need Node.js 18 or later.
-
 ### Claude Code
 
+```text
+/plugin marketplace add chinmayPatil10/github-profile-designer
+/plugin install github-profile-designer@github-profile-designer
+```
+
+Or copy the skill folder directly:
+
 ```bash
-claude mcp add profile-designer -e GITHUB_TOKEN=ghp_yourtoken -- npx -y github:chinmayPatil10/github-profile-designer-mcp
+git clone https://github.com/chinmayPatil10/github-profile-designer && cp -r github-profile-designer/skills/github-profile-designer ~/.claude/skills/
 ```
 
-### Claude Desktop, Cursor and other MCP clients
+### Claude apps (claude.ai, desktop)
 
-Add this to your MCP config (for Claude Desktop, `claude_desktop_config.json`):
+Download `github-profile-designer.zip` from the [latest release](https://github.com/chinmayPatil10/github-profile-designer/releases/latest) and upload it under **Settings → Capabilities → Skills**.
 
-```json
-{
-  "mcpServers": {
-    "profile-designer": {
-      "command": "npx",
-      "args": ["-y", "github:chinmayPatil10/github-profile-designer-mcp"],
-      "env": { "GITHUB_TOKEN": "ghp_yourtoken" }
-    }
-  }
-}
+### Then just ask
+
+> *"Redesign my GitHub profile, I'm octocat"*
+> *"Give my profile a guestbook"*
+> *"Make my GitHub profile a choose-your-own-adventure"*
+
+## 🧰 What's inside
+
+```
+skills/github-profile-designer/
+├── SKILL.md                     workflow: gather → design → write → check → publish
+├── scripts/
+│   ├── fetch_profile.mjs        draft profile from public GitHub data
+│   └── check_readme.mjs         fetches every image, catches broken badges and error cards
+├── references/                  design catalog, URL recipes, GitHub rendering rules, interactive setup
+└── assets/
+    ├── examples/                one full README per design
+    ├── workflows/               snake, guestbook and poll GitHub Actions
+    └── actions/                 guestbook and poll scripts (zero dependencies)
 ```
 
-### 🔑 About the token
-
-`GITHUB_TOKEN` is **optional**.
-
-- **Without it:** you can still browse designs, fetch profiles and generate READMEs, then paste the result into your profile repo yourself.
-- **With it:** `publish_profile_readme` can commit for you. Use a [classic token](https://github.com/settings/tokens) with the `repo` and `workflow` scopes. `workflow` is only needed for the snake designs.
-
-The server only publishes to the token owner's own `username/username` repo.
-
-## 🧰 Tools
-
-| Tool | What it does | Writes? |
-|---|---|---|
-| `list_designs` | Lists the designs with their vibe and features | No |
-| `fetch_github_profile` | Builds a draft profile from public GitHub data | No |
-| `generate_readme` | Renders the README plus any extra files | No |
-| `publish_profile_readme` | Commits the files to `username/username`. Supports `dry_run` | **Yes** |
-
-There's also a **`design_my_profile`** prompt that walks through the whole flow.
+The scripts need Node.js 18+. Publishing uses the [GitHub CLI](https://cli.github.com) if you have it, and otherwise Claude hands you the files to add yourself.
 
 ## 🛠️ Develop
 
 ```bash
-npm install
-npm test           # design rendering + end-to-end MCP tests
-npm run examples   # regenerate examples/*.md
-npm run dev        # run the server from source
+npm test                # guestbook and poll logic, end-to-end action runs, example structure
+npm run check-examples  # fetch every image in every example
 ```
 
-### Adding a design
-
-Add a `Design` object to [`src/designs.ts`](src/designs.ts): an `id`, `name`, `vibe`, `features` and a `render(profile)` function that returns `{ readme, extraFiles }`. Reusable pieces (badges, skill icons, banners, stats cards, snake) live in [`src/blocks.ts`](src/blocks.ts). Then add the new id to the `DESIGNS` array, and run `npm test` and `npm run examples`.
-
-Pull requests with new designs are welcome!
+To add a design, write `assets/examples/<id>.md`, add a row to `references/designs.md`, and run both commands above. PRs with new designs are welcome!
 
 ## 🙏 Built on
 
-[capsule-render](https://github.com/kyechan99/capsule-render) · [readme-typing-svg](https://github.com/DenverCoder1/readme-typing-svg) · [skillicons.dev](https://skillicons.dev) · [shields.io](https://shields.io) · [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) · [streak-stats](https://github.com/DenverCoder1/github-readme-streak-stats) · [activity graph](https://github.com/Ashutosh00710/github-readme-activity-graph) · [Platane/snk](https://github.com/Platane/snk)
+[capsule-render](https://github.com/kyechan99/capsule-render) · [readme-typing-svg](https://github.com/DenverCoder1/readme-typing-svg) · [skillicons.dev](https://skillicons.dev) · [shields.io](https://shields.io) · [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) · [streak-stats](https://github.com/DenverCoder1/github-readme-streak-stats) · [ghchart](https://github.com/2016rshah/githubchart-api) · [komarev](https://github.com/antonkomarev/github-profile-views-counter) · [Platane/snk](https://github.com/Platane/snk)
 
 ## 📄 License
 

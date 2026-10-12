@@ -1,0 +1,14 @@
+{
+  "name": "github-profile-designer",
+  "description": "GitHub profile README designer skill",
+  "owner": {
+    "name": "Chinmay Patil"
+  },
+  "plugins": [
+    {
+      "name": "github-profile-designer",
+      "source": "./",
+      "description": "Design, write and publish your GitHub profile README in 12 designs, including interactive guestbook, poll and choose-your-adventure profiles"
+    }
+  ]
+}

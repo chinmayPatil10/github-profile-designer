@@ -1,0 +1,49 @@
+name: Guestbook
+
+# Visitors open an issue titled "guestbook: ..." from the README link.
+# This workflow updates README.md, replies, and closes the issue.
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: profile-readme-interactive
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: startsWith(github.event.issue.title, 'guestbook:')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Issue text is passed through env, never interpolated into the script, so it can't inject shell commands.
+      - id: update
+        run: node .github/scripts/guestbook.mjs
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "guestbook: update from #${{ github.event.issue.number }}"
+          git push
+
+      - name: Reply and close
+        run: gh issue close "${{ github.event.issue.number }}" --comment "$REPLY"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          REPLY: ${{ steps.update.outputs.reply }}

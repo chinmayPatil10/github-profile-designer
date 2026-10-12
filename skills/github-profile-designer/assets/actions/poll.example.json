@@ -1,0 +1,10 @@
+{
+  "question": "What should I build next?",
+  "options": [
+    { "id": "agent", "label": "🤖 An AI agent", "votes": 0 },
+    { "id": "game", "label": "🎮 A browser game", "votes": 0 },
+    { "id": "devtool", "label": "🛠️ A dev tool", "votes": 0 },
+    { "id": "surprise", "label": "🎲 Surprise me", "votes": 0 }
+  ],
+  "voters": []
+}
