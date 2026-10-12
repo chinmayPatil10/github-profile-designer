@@ -19,6 +19,16 @@ GitHub never runs code in a README, so interactivity comes from three tricks:
 - **Mindmap:** group skills into 3–5 branches (Languages, Frameworks, Data, Cloud and DevOps, AI). Keep node text free of `()[]{}:&`.
 - **Open section:** leave About open with `<details open>` so the profile isn't a wall of closed boxes.
 
+## World map
+
+GitHub renders a ```` ```geojson ```` code block as an interactive map that visitors can drag, zoom and click.
+
+- **Places:** ask where the person studied, worked and lives, with years. Use city-level coordinates only, never a home address.
+- **Coordinate order:** GeoJSON uses `[longitude, latitude]`, the opposite of most maps. Getting this backwards puts Lisbon in the Indian Ocean.
+- **Pins:** each Point gets `title`, `description` (years and what happened), and simplestyle properties: `marker-color`, `marker-symbol` (Maki icon names like `star`, `college`, `suitcase`, `rocket`) and `marker-size`.
+- **Journey line:** add a LineString through the points in time order to show the journey.
+- **Validate:** check the JSON before publishing (`python3 -c "import json,sys; json.load(sys.stdin)"`), since one trailing comma turns the map into a plain code block.
+
 ## Guestbook
 
 Files to add to the profile repo:

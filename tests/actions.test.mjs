@@ -73,7 +73,7 @@ test("scripts run end to end like the GitHub Action does", () => {
 });
 
 test("every example passes structural checks", () => {
-  for (const name of ["adventure", "interactive-resume", "guestbook", "poll", "classic", "terminal", "lab-notebook", "minimal", "neon", "neon-terminal", "project-cards", "stats-dashboard"]) {
+  for (const name of ["adventure", "interactive-resume", "guestbook", "poll", "classic", "terminal", "lab-notebook", "minimal", "neon", "neon-terminal", "project-cards", "stats-dashboard", "rpg", "changelog", "code-snippet", "magazine", "retro-90s", "world-map"]) {
     const md = readFileSync(join(EX, `${name}.md`), "utf8");
     for (const tag of ["details", "div", "picture"]) {
       const open = (md.match(new RegExp(`<${tag}[\\s>]`, "g")) || []).length;
@@ -82,4 +82,21 @@ test("every example passes structural checks", () => {
     }
     assert.ok(!/<\/summary>\n[^\n<]/.test(md), `${name}: blank line after </summary>`);
   }
+});
+
+test("world-map example has valid GeoJSON with [lng, lat] order", () => {
+  const md = readFileSync(join(EX, "world-map.md"), "utf8");
+  const geo = JSON.parse(md.match(/```geojson\n([\s\S]*?)```/)[1]);
+  for (const f of geo.features.filter((f) => f.geometry.type === "Point")) {
+    const [lng, lat] = f.geometry.coordinates;
+    assert.ok(Math.abs(lat) <= 90 && Math.abs(lng) <= 180, `${f.properties.title} coordinates in range`);
+  }
+});
+
+test("catalog lists every example and every example is in the catalog", async () => {
+  const { readdirSync } = await import("node:fs");
+  const catalog = readFileSync(join(SKILL, "references/designs.md"), "utf8");
+  const files = readdirSync(EX).filter((f) => f.endsWith(".md") && f !== "README.md").map((f) => f.replace(".md", ""));
+  assert.equal(files.length, 18);
+  for (const id of files) assert.ok(catalog.includes(`| \`${id}\` |`), `${id} in designs.md`);
 });

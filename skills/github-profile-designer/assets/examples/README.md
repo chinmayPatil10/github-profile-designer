@@ -14,7 +14,13 @@ Live widgets need a real account, so in these files the stats cards, streak, con
 | Minimal editorial | [minimal.md](minimal.md) |
 | Project cards | [project-cards.md](project-cards.md) |
 | Neon terminal | [neon-terminal.md](neon-terminal.md) |
+| RPG character sheet | [rpg.md](rpg.md) |
+| Changelog | [changelog.md](changelog.md) |
+| Code snippet | [code-snippet.md](code-snippet.md) |
+| Magazine | [magazine.md](magazine.md) |
+| Retro 90s homepage | [retro-90s.md](retro-90s.md) |
 | 🕹️ Choose your adventure | [adventure.md](adventure.md) |
 | 🕹️ Interactive resume | [interactive-resume.md](interactive-resume.md) |
+| 🕹️ World map | [world-map.md](world-map.md) |
 | 🕹️ Guestbook | [guestbook.md](guestbook.md) |
 | 🕹️ Poll | [poll.md](poll.md) |

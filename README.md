@@ -4,7 +4,7 @@
 
 **An agent skill that designs, writes and publishes your GitHub profile README.**
 
-Tell Claude *"make my GitHub profile look great"*. It reads your public GitHub data, asks what it can't find, offers 12 designs (4 of them interactive), writes the README, checks that every image renders, and publishes it to your `username/username` repo once you say yes.
+Tell Claude *"make my GitHub profile look great"*. It reads your public GitHub data, asks what it can't find, offers 18 designs (5 of them interactive), writes the README, checks that every image renders, and publishes it to your `username/username` repo once you say yes.
 
 ![Skill](https://img.shields.io/badge/Agent-Skill-7C4DFF?style=flat-square)
 ![Claude Code plugin](https://img.shields.io/badge/Claude_Code-plugin-D85A30?style=flat-square)
@@ -26,6 +26,11 @@ Tell Claude *"make my GitHub profile look great"*. It reads your public GitHub d
 | Minimal editorial | Text only, calm | [view](skills/github-profile-designer/assets/examples/minimal.md) |
 | Project cards | Repo pin cards in a grid | [view](skills/github-profile-designer/assets/examples/project-cards.md) |
 | Neon terminal | Neon header plus terminal sections | [view](skills/github-profile-designer/assets/examples/neon-terminal.md) |
+| RPG character sheet | Level, HP/XP bars, inventory, quest log, achievements | [view](skills/github-profile-designer/assets/examples/rpg.md) |
+| Changelog | Your career as release notes, `[Unreleased]` to `v1.0.0` | [view](skills/github-profile-designer/assets/examples/changelog.md) |
+| Code snippet | You, as a TypeScript object | [view](skills/github-profile-designer/assets/examples/code-snippet.md) |
+| Magazine | Two-column editorial cover story | [view](skills/github-profile-designer/assets/examples/magazine.md) |
+| Retro 90s homepage | Under construction, visitor counter, best viewed in Netscape | [view](skills/github-profile-designer/assets/examples/retro-90s.md) |
 
 **🕹️ Interactive**
 
@@ -33,38 +38,38 @@ Tell Claude *"make my GitHub profile look great"*. It reads your public GitHub d
 |---|---|---|
 | Choose your adventure | Open "doors" to explore your workshop, library, journal and a secret room | [try it](skills/github-profile-designer/assets/examples/adventure.md) |
 | Interactive resume | Expand sections, see a Mermaid career timeline and skills mindmap | [try it](skills/github-profile-designer/assets/examples/interactive-resume.md) |
+| World map | Drag, zoom and click pins on a map of where you've studied and worked | [try it](skills/github-profile-designer/assets/examples/world-map.md) |
 | Guestbook | Sign your profile. A GitHub Action adds their message within a minute | [view](skills/github-profile-designer/assets/examples/guestbook.md) |
 | Poll | Vote on what you build next. An Action counts the votes and redraws the bars | [view](skills/github-profile-designer/assets/examples/poll.md) |
 
 GitHub never runs JavaScript in a README, so the interactive designs use what GitHub *does* allow:
 - **Collapsible sections:** `<details>` lets visitors choose what to open.
-- **Rendered diagrams:** Mermaid code blocks become timelines and mindmaps.
+- **Rendered blocks:** Mermaid code blocks become timelines and mindmaps, and GeoJSON blocks become interactive maps.
 - **Issue-driven Actions:** a link opens a pre-filled issue, and a workflow updates the README and closes the issue.
 
-## 🚀 Install
-
-### Claude Code
-
-```text
-/plugin marketplace add chinmayPatil10/github-profile-designer
-/plugin install github-profile-designer@github-profile-designer
-```
-
-Or copy the skill folder directly:
+## 🚀 Quick start
 
 ```bash
-git clone https://github.com/chinmayPatil10/github-profile-designer && cp -r github-profile-designer/skills/github-profile-designer ~/.claude/skills/
+claude plugin marketplace add chinmayPatil10/github-profile-designer
 ```
 
-### Claude apps (claude.ai, desktop)
+```bash
+claude plugin install github-profile-designer@github-profile-designer
+```
 
-Download `github-profile-designer.zip` from the [latest release](https://github.com/chinmayPatil10/github-profile-designer/releases/latest) and upload it under **Settings → Capabilities → Skills**.
+Then, in Claude Code:
 
-### Then just ask
+```text
+Make my GitHub profile look great. My username is octocat.
+```
 
-> *"Redesign my GitHub profile, I'm octocat"*
-> *"Give my profile a guestbook"*
-> *"Make my GitHub profile a choose-your-own-adventure"*
+Or go straight to a design:
+
+```text
+/github-profile-designer:github-profile-designer rpg
+```
+
+**📖 [Full usage guide](USAGE.md)** covers installing in the Claude apps, every design's command, example prompts, standalone scripts, updating and troubleshooting.
 
 ## 🧰 What's inside
 

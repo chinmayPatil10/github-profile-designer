@@ -1,6 +1,6 @@
 ---
 name: github-profile-designer
-description: Design, write and publish a GitHub profile README (the username/username repo shown at the top of github.com/username), choosing from 12 designs including interactive ones like a choose-your-adventure profile, an expandable resume with Mermaid timelines, a visitor guestbook and a visitor poll powered by GitHub Actions. Use this whenever someone wants to beautify, redesign, create, spice up or fix their GitHub (or GitLab) profile, profile README, or "about me" page on GitHub, asks for profile badges, stats cards, typing animations or a contribution snake, or wants their profile to be interactive, even if they don't say "README".
+description: Design, write and publish a GitHub profile README (the username/username repo shown at the top of github.com/username), choosing from 18 designs, from terminal, neon and RPG character sheets to interactive ones like a choose-your-adventure profile, an expandable resume with Mermaid timelines, a clickable world map, a visitor guestbook and a visitor poll powered by GitHub Actions. Use this whenever someone wants to beautify, redesign, create, spice up or fix their GitHub (or GitLab) profile, profile README, or "about me" page on GitHub, asks for profile badges, stats cards, typing animations or a contribution snake, or wants their profile to be interactive, even if they don't say "README".
 ---
 
 # GitHub Profile Designer
@@ -29,11 +29,11 @@ Then fill the gaps. Ask the user for what GitHub can't tell you:
 
 If they share a résumé or a portfolio, mine it for skills, experience and project descriptions. Never publish a phone number or street address, even if a résumé has one. Asking with a form or a question tool beats a long list of questions in prose.
 
-Repo descriptions are often empty or stale. Read a candidate repo's README (`gh api repos/OWNER/REPO/readme --jq .content | base64 -d`) before writing a one-liner for it. Leave out repos that are forks, coursework or empty templates unless the user wants them, and say which ones you skipped.
+Repo descriptions are often empty or stale. Read a candidate repo's README (`gh api repos/OWNER/REPO/readme --jq .content | base64 -d`) before writing a one-liner for it. The fetch script already ranks real projects first and marks likely coursework or test repos with `lowSignal: true`. Leave out forks, coursework and empty templates unless the user wants them, and say which ones you skipped.
 
 ### 2. Pick a design
 
-Read `references/designs.md` for the catalog of 12 designs. There are 8 static ones (classic, terminal, lab-notebook, stats-dashboard, neon, minimal, project-cards, neon-terminal) and 4 interactive ones (adventure, interactive-resume, guestbook, poll). It covers which design fits which kind of person and how to mix them.
+Read `references/designs.md` for the catalog of 18 designs. There are 13 static ones (classic, terminal, lab-notebook, stats-dashboard, neon, minimal, project-cards, neon-terminal, rpg, changelog, code-snippet, magazine, retro-90s) and 5 interactive ones (adventure, interactive-resume, world-map, guestbook, poll). If the user names a design when invoking the skill, skip the menu and go straight to it. It covers which design fits which kind of person and how to mix them.
 
 Show the options visually if you can, for example as small mockup cards. Recommend one or two based on what you learned. Users often want to combine two designs, which is fine; the catalog explains how.
 

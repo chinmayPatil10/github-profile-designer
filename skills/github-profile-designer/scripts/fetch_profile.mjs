@@ -33,12 +33,21 @@ const own = repos.filter((r) => !r.fork && !r.archived && r.name.toLowerCase() !
 const languages = {};
 for (const r of own) if (r.language) languages[r.language] = (languages[r.language] || 0) + 1;
 
-const ranked = [...own].sort(
-  (a, b) =>
-    b.stargazers_count - a.stargazers_count ||
-    Number(!!b.description) - Number(!!a.description) ||
-    b.pushed_at.localeCompare(a.pushed_at),
-);
+// Score repos so real projects beat coursework, tests and empty templates.
+// Stars matter, but so do a description, a live site, topics and recent activity.
+const LOW_SIGNAL = /(course|assignment|homework|hw\d|lab\d|tutorial|practice|test|demo|sample|template|hello-world|learning|class|university|college)/i;
+const now = Date.now();
+function score(r) {
+  let s = r.stargazers_count * 3;
+  if (r.description) s += 4;
+  if (r.homepage) s += 3;
+  if ((r.topics || []).length) s += 1;
+  const ageDays = (now - Date.parse(r.pushed_at)) / 86400000;
+  s += ageDays < 180 ? 4 : ageDays < 365 ? 2 : ageDays < 1095 ? 1 : 0;
+  if (LOW_SIGNAL.test(r.name) || LOW_SIGNAL.test(r.description || "")) s -= 6;
+  return s;
+}
+const ranked = [...own].sort((a, b) => score(b) - score(a) || b.pushed_at.localeCompare(a.pushed_at));
 
 console.log(
   JSON.stringify(
@@ -64,6 +73,7 @@ console.log(
         stars: r.stargazers_count,
         topics: r.topics || [],
         lastPush: r.pushed_at.slice(0, 10),
+        lowSignal: LOW_SIGNAL.test(r.name) || LOW_SIGNAL.test(r.description || ""),
       })),
       skippedForks: repos.filter((r) => r.fork).length,
     },

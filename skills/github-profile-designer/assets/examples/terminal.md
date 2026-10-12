@@ -1,9 +1,6 @@
 ```console
-
 ada-example@github:~$ echo $TAGLINE
-
 Curious · Builder · Breaker of things
-
 ```
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white&labelColor=0d1117)](https://www.linkedin.com/in/ada-example)

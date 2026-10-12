@@ -1,6 +1,6 @@
 {
   "name": "github-profile-designer",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "Agent skill that designs, writes and publishes GitHub profile READMEs",
   "type": "module",
